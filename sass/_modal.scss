@@ -1,0 +1,63 @@
+.modal-background{
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    background-color: $border-color;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    .modal-card{
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px $quaternary-color;
+        padding: 2rem;
+        position: relative;
+        flex-grow: 1;
+        max-width: 300px;
+        height: 200px;
+        background-color: $tertiary-color;
+        margin: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        &__close{
+            align-self: flex-end;
+            cursor: pointer;
+            background-color: red;
+            border: 2px solid $text-color;
+            color: $text-color;
+            font-weight: bold;
+            border-radius: 5px;
+            width: max-content;
+            padding: 0.2rem 0.5rem;
+            font-size: 1rem;
+            &:hover{
+                transition: all 200ms;
+                box-shadow: 0px 0px 5px $border-color;
+                background-color: rgb(194, 26, 26);
+            }
+        }
+        &__message{
+            color: $text-color;
+            font-size: 2rem;
+            text-align: center;
+        }
+        &__play-again{
+            width: max-content;
+            font-size: 1rem;
+            padding: 0.2rem 0.5rem;
+            cursor: pointer;
+            margin: 0 auto;
+            background-color: $primary-color;
+            color: $text-color;
+            font-weight: bold;
+            border: 2px solid $text-color;
+            border-radius: 1rem;
+            transition: all 200ms;
+            &:hover{
+                background-color: transparent;
+            }
+        }
+    }
+}

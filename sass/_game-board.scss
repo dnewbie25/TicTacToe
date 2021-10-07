@@ -1,0 +1,51 @@
+.game-board{
+    margin: 0 1rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 200px));
+    grid-template-rows: repeat(3, 200px);
+    justify-content: center;
+    border-radius: 10px;
+    div{
+        background-color: $tertiary-color;
+        cursor: pointer;
+        transition: all 150ms;
+        // round borders
+        &:nth-child(1){
+            border-radius: 10px 0 0 0;
+        }
+        &:nth-child(3){
+            border-radius: 0 10px 0 0;
+        }
+        &:nth-child(7){
+            border-radius: 0 0 0 10px;
+        }
+        &:nth-child(9){
+            border-radius: 0 0 10px 0;
+        }
+        // border color
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-child(4),
+        &:nth-child(5),
+        &:nth-child(7),
+        &:nth-child(8){
+            border-right: 3px solid $primary-color;
+            border-bottom: 3px solid $primary-color;
+        }
+        &:nth-child(3),
+        &:nth-child(6),
+        &:nth-child(9){
+            border-bottom: 3px solid $primary-color;
+        }
+        &:hover{
+            transform: scale(1.05);
+            border: none;
+            box-shadow: 0px 0px 5px $text-color;
+            border-radius: 0;
+        }
+        &:active{
+            background-color: $quaternary-color;
+        }
+    }
+}
