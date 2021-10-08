@@ -51,8 +51,8 @@ const Player = (marker, name) => {
             if(e.target.classList.contains('game-board__item') && e.target.innerHTML === "<p></p>" || e.target.classList.contains('game-board__item') && e.target.innerHTML === "<p> </p>"){
                 const dataAttribute = Number(e.target.getAttribute('data-slot'));
                 console.log(dataAttribute);
-                // Gameboard.updateBoard(marker, dataAttribute);
-                // Gameboard.displayBoard();
+                Gameboard.updateBoard(marker, dataAttribute);
+                Gameboard.displayBoard();
             }
         });
     };
