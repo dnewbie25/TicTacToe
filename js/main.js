@@ -1,66 +1,103 @@
-// Gameboard module
+'use strict';
 
-const Gameboard = (function(){
-    let boardArray = Array.from(' '.repeat(9));
-    let displayBoard = () => {
-        const gameSlots = document.querySelectorAll('.game-board__item'); 
-        for (let index = 0; index < gameSlots.length; index++){
-            gameSlots[index].innerHTML = `<p>${boardArray[index]}</p>`;
-        }
-    };
-    let updateBoard = (value, slot) => {
-        if(slot >=0 && slot <= 8){
-            boardArray[slot] = value;
-        }
-    };
-    let reset = () => {
+// Player constructor
+// const Player = () => {
+//     const makeMove = (mark) => {
+//         document.addEventListener('click', e => {
+//             if (e.target.classList.contains('game-board__item')) {
+//                 const position = e.target.getAttribute('data-slot');
+//                 GameModule.updateArray(position, mark);
+//             }
+//         });
+//     }
+
+//     return {
+//         makeMove
+//     }
+// };
+
+// creating a game module that includes all the behaviors
+const GameModule = (function () {
+    let boardArray = ['', '', '', '', '', '', '', '', ''];
+    let turn = 'x';
+    let mark = 'x';
+    
+    const makeMove = () => {
         document.addEventListener('click', e => {
-            if(e.target.classList.contains('restart') || e.target.classList.contains('modal-card__play-again')){
-                boardArray = Array.from(' '.repeat(9));
-                displayBoard();
+            if (e.target.classList.contains('game-board__item')) {
+                if (turn === 'x'){
+                    mark = 'x';
+                    turn = 'o';
+                }else{
+                    mark = 'o';
+                    turn = 'x';
+                }
+                const position = e.target.getAttribute('data-slot');
+                GameModule.updateArray(position, mark);
             }
         });
-    };
-    reset();
-    // let showWinner = (choice, player) => {
-    //     const winnerModal = document.querySelector('.modal-background');
-    //     if(
-    //         (boardArray[0] === boardArray[1] && boardArray[0] === boardArray[2] && boardArray[0] != ' ') ||
-    //         (boardArray[3] === boardArray[4] && boardArray[3] === boardArray[5] && boardArray[3] != ' ') ||
-    //         (boardArray[6] === boardArray[7] && boardArray[6] === boardArray[8] && boardArray[6] != ' ') ||
-    //         (boardArray[0] === boardArray[4] && boardArray[0] === boardArray[8] && boardArray[0] != ' ') ||
-    //         (boardArray[2] === boardArray[4] && boardArray[2] === boardArray[6] && boardArray[2] != ' ')
-    //         ) {
-    //         winnerModal.style.display = 'flex';
+
+    }
+    makeMove();
+    // const changeTurn = ()=>{
+    //     if(turn === 'x'){
+    //         makeMove();
+    //     }else if(turn === 'o'){
+    //         makeMove();
     //     }
-    // };
-    // showWinner();
-    // public functions
+    // }
+    // changeTurn();
+    // reset and play Again buttons
+    const displayBoard = () => {
+        const gameFields = document.querySelectorAll('.game-board__item');
+        gameFields.forEach(field => {
+            const data = Number(field.getAttribute('data-slot'));
+            field.innerHTML = `<p>${boardArray[data]}</p>`;
+        });
+    }
+
+    const updateArray = (position, mark) => {
+        boardArray[position] = mark;
+        displayBoard();
+    }
+
+    const closeModal =()=>{
+        const modal = document.querySelector('.modal-background');
+        const closeBtn = document.querySelector('.modal-card__close');
+
+        closeBtn.addEventListener('click', ()=>{
+            boardArray = ['', '', '', '', '', '', '', '', ''];
+            modal.style.display = 'none';
+            mark = 'x';
+            turn = 'x';
+            displayBoard();
+        });
+    }
+
+    const reset = () =>{
+        const reset = document.querySelector('.restart');
+        const modal = document.querySelector('.modal-background');
+        const replay = document.querySelector('.modal-card__play-again');
+
+        reset.addEventListener('click',()=>{
+            boardArray = ['', '', '', '', '', '', '', '', ''];
+            mark = 'x';
+            turn = 'x';
+            displayBoard();
+        });
+
+        replay.addEventListener('click',()=>{
+            boardArray = ['', '', '', '', '', '', '', '', ''];
+            modal.style.display = 'none';
+            mark = 'x';
+            turn = 'x';
+            displayBoard();
+        });
+    }
+    reset();
+    closeModal();
     return {
-        boardArray,
-        displayBoard,
-        updateBoard,
-        // showWinner
+        updateArray,
+        turn
     }
 })();
-
-// player factory
-const Player = (marker, name) => {
-    let makeMove = () =>{
-        document.addEventListener('click', e=>{
-            if(e.target.classList.contains('game-board__item') && e.target.innerHTML === "<p></p>" || e.target.classList.contains('game-board__item') && e.target.innerHTML === "<p> </p>"){
-                const dataAttribute = Number(e.target.getAttribute('data-slot'));
-                console.log(dataAttribute);
-                Gameboard.updateBoard(marker, dataAttribute);
-                Gameboard.displayBoard();
-            }
-        });
-    };
-    return {
-        makeMove,
-        name
-    }
-}
-
-let player1 = Player('x', 'dani');
-
