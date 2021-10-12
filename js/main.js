@@ -18,7 +18,7 @@ const GameModule = (function () {
     // check if the previous mark was an x or o and changes it
     const makeMove = () => {
         document.addEventListener('click', e => {
-            if (e.target.classList.contains('game-board__item')) {
+            if (e.target.classList.contains('game-board__item') && e.target.innerHTML === "<p></p>") {
                 if (turn === 'x') {
                     mark = 'x';
                     turn = 'o';
