@@ -41,7 +41,9 @@ const GameModule = (function () {
     }
 
     const updateArray = (position, mark) => {
-        boardArray[position] = mark;
+        if(boardArray[position] === ''){
+            boardArray[position] = mark;
+        }
         displayBoard();
     }
 
@@ -121,7 +123,4 @@ const GameModule = (function () {
     displayWinner();
     reset();
     closeModal();
-    return {
-        displayWinner
-    }
 })();
